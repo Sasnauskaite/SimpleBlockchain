@@ -9,7 +9,7 @@
 #include <time.h>
 
 using namespace std;
-int UserNumb = 1000;
+int UserNumb = 20, TransNum = 10;//vartotoju skaicius ir transakciju skaicius
 int num = 100; //Public key ilgis
 string letters [52] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", 
 "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", 
@@ -22,7 +22,6 @@ int numbers [70] = {1111, 2222, 3333, 4444, 5555, 6666, 7777, 8888,
 6890, 7801, 8912, 9134, 9685, 6852, 3857, 8574, 5241, 2740, 7496,
 9745, 9765, 8654, 7643, 6532, 5421, 4320, 3209, 2098, 1987, 1375, 
 8640, 5657, 8989, 5356, 2525, 6523, 1259};
-
 int GenerateUsers()
 {
     string username, publicKey;
@@ -46,7 +45,7 @@ int GenerateUsers()
             r = rand() % 51;
             publicKey += letters[r];
         }
-        r = rand() % 1000;
+        r = rand() % 1000000;
         currency = r;
         out<<username<<" "<<publicKey<<" "<<currency<<"\n";
         username.clear();
@@ -113,7 +112,7 @@ string HASHING2(string text)
         {
             change=change*(-1);
         }
-        code += to_string(change);//+letters[iSecret];
+        code += to_string(change);
         i++;
         if(i >= 70)
         {
