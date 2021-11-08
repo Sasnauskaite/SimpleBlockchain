@@ -9,7 +9,8 @@
 #include <time.h>
 
 using namespace std;
-int UserNumb = 20, TransNum = 10;//vartotoju skaicius ir transakciju skaicius
+int UserNumb = 1000, TransNum = 10000, transfers=128;//UserNumb=vartotoju skaicius; TransNum=transakciju skaicius; 
+//transfers=transakciju, kurios bus dedamos i bloka numeriai
 int num = 100; //Public key ilgis
 string letters [52] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", 
 "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", 
@@ -22,6 +23,7 @@ int numbers [70] = {1111, 2222, 3333, 4444, 5555, 6666, 7777, 8888,
 6890, 7801, 8912, 9134, 9685, 6852, 3857, 8574, 5241, 2740, 7496,
 9745, 9765, 8654, 7643, 6532, 5421, 4320, 3209, 2098, 1987, 1375, 
 8640, 5657, 8989, 5356, 2525, 6523, 1259};
+
 int GenerateUsers()
 {
     string username, publicKey;
@@ -102,17 +104,19 @@ string HASHING2(string text)
         }
     }
 
-    int i = 0;
+    int i = 0, x=5;
     while(code.size() < 64)
     {
         int iSecret = rand() % 69;
-        int change = numbers[iSecret+i]*(INPUTsize+i);
+        int change = numbers[iSecret+x]*(INPUTsize+i);
         change = change % 10;
         if(change<0)
         {
             change=change*(-1);
         }
         code += to_string(change);
+        iSecret = rand() % 51;
+        code = code + letters[iSecret];
         i++;
         if(i >= 70)
         {

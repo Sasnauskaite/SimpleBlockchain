@@ -36,6 +36,8 @@ class Transaction {
         vector<string> payee;
         vector<int> amount;
         vector<string> ID;
+        vector<int> put_to_block;
+        friend class Block;
     public:
 		void generate_transactions(User& users)
         {
@@ -77,16 +79,61 @@ class Transaction {
                 out<<sender[i]<<" "<<amount[i]<<" "<<payee[i]<<endl;
             }
         }
+        void Choose_transactions()
+        {
+            int temp;
+            srand((unsigned int)time(NULL));
+            for(int i=0; i<transfers; i++)
+            {
+                put_to_block.push_back(rand() % TransNum);
+            }
+            ofstream out("to_block.txt");
+            for(int i=0; i<transfers; i++)
+            {
+                temp = put_to_block[i];
+                out<<ID[temp]<<" "<<sender[temp]<<" "<<amount[temp]<<" "<<payee[temp]<<endl;
+            }
+        }
 };
 class Block
 {
     private: 
-        int PrevBlockHash;
+        string PrevBlockHash;
         double timestamp;
         int Version;
-        string MerkelRootHash;
+        string MerkleRootHash;
         int Nonce;
         int Difficulty;
     public:
-    
+        void MerkleRoot(Transaction& tr)
+        {
+            string toHash;
+            int times;
+            vector<string> first;
+            vector<string> second, third;
+            int temp;
+            for(int i=0; i<transfers; i++)
+            {
+                temp = tr.put_to_block[i];
+                toHash = tr.sender[temp] + to_string(tr.amount[temp]) + tr.payee[temp];
+                toHash = HASHING2(toHash);
+                first.push_back(toHash);
+            }
+            times = transfers;
+            for(int j=0; j<7; j++)
+            {
+                for(int ii=0; ii<times; ii++)
+                {
+                    toHash = first[ii] + first[ii+1];
+                    toHash = HASHING2(toHash);
+                    second.push_back(toHash);
+                    ii++;
+                }
+                times= times/2;
+                first.clear();
+                first=second;
+                second.clear();
+            }
+            MerkleRootHash = first[0];
+        }
 };
