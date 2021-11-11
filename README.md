@@ -14,3 +14,7 @@ Sukurta atsitiktinų transakcijų, kurios bus keliamos į bloką, parinkimo funk
 
 Sukurta funkcija, kuri pagal Merkle tree iš visų bloko transakcijų sukuria hash'ą (Merkel Root Hash).
 
+# V0.0.4
+
+Sukurta dalinai veikianti blokų kasimo funkcija.
+
