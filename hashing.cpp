@@ -1,3 +1,5 @@
+//In this file are two functions that are used for generating users and hashing
+
 #include "class.h"
 
 int GenerateUsers()
