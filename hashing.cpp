@@ -107,3 +107,13 @@ string HASHING2(string text)
     }  
     return code;
 }
+
+
+
+
+
+
+
+
+
+
